@@ -8,17 +8,17 @@ const categoriesContainer = document.querySelector('[data-categories]');
 // Selector for currently viewing
 const currentlyViewing = document.querySelector('[data-currently-viewing]');
 
-// Selector for new todo form
-const newTodoForm = document.querySelector('[data-new-todo-form]');
-const newTodoSelect = document.querySelector('[data-new-todo-select]');
-const newTodoInput = document.querySelector('[data-new-todo-input]');
+// Selector for new task form
+const newTodoForm = document.querySelector('[data-new-task-form]');
+const newTodoSelect = document.querySelector('[data-new-task-select]');
+const newTodoInput = document.querySelector('[data-new-task-input]');
 
-// Selector for edit todo form
-const editTodoForm = document.querySelector('[data-edit-todo-form]');
-const editTodoSelect = document.querySelector('[data-edit-todo-select]');
-const editTodoInput = document.querySelector('[data-edit-todo-input]');
+// Selector for edit task form
+const editTodoForm = document.querySelector('[data-edit-task-form]');
+const editTodoSelect = document.querySelector('[data-edit-task-select]');
+const editTodoInput = document.querySelector('[data-edit-task-input]');
 
-// Selector for todos container
+// Selector for task container
 const todosContainer = document.querySelector('[data-cards]');
 
 // Local storage keys
@@ -88,7 +88,7 @@ currentlyViewing.addEventListener('click', (e) => {
 });
 
 // EVENT: Add Todo
-newTodoForm.addEventListener('submit', (e) => {
+newTaskForm.addEventListener('submit', (e) => {
     e.preventDefault();
     todos.push({
         _id: Date.now().toString(),
@@ -111,13 +111,13 @@ todosContainer.addEventListener('click', (e) => {
 
         todoToEdit = todos.find((todo) => todo._id === e.target.dataset.editTodo);
 
-        editTodoSelect.value = todoToEdit.categoryId;
-        editTodoInput.value = todoToEdit.todo;
+        editTaskSelect.value = taskToEdit.categoryId;
+        editTaskInput.value = taskToEdit.todo;
     }
     if (e.target.classList[1] === 'fa-trash-alt') {
-        const todoToDeleteIndex = todos.findIndex((todo) => todo._id === e.target.dataset.deleteTodo);
+        const taskToDeleteIndex = task.findIndex((todo) => todo._id === e.target.dataset.deleteTask);
 
-        todos.splice(todoToDeleteIndex, 1);
+        todos.splice(taskToDeleteIndex, 1);
 
         saveAndRender();
     }
