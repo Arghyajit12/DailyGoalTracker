@@ -87,7 +87,7 @@ currentlyViewing.addEventListener('click', (e) => {
     }
 });
 
-// EVENT: Add Todo
+// EVENT: Add Task
 newTaskForm.addEventListener('submit', (e) => {
     e.preventDefault();
     task.push({
@@ -102,9 +102,9 @@ newTaskForm.addEventListener('submit', (e) => {
     saveAndRender();
 });
 
-// EVENT: Load Edit Todo Form With Values
-let todoToEdit = null;
-todosContainer.addEventListener('click', (e) => {
+// EVENT: Load Edit Task Form With Values
+let taskToEdit = null;
+tasksContainer.addEventListener('click', (e) => {
     if (e.target.classList[1] === 'fa-edit') {
         newTaskForm.style.display = 'none';
         editTaskForm.style.display = 'flex';
@@ -117,24 +117,24 @@ todosContainer.addEventListener('click', (e) => {
     if (e.target.classList[1] === 'fa-trash-alt') {
         const taskToDeleteIndex = task.findIndex((task) => task._id === e.target.dataset.deleteTask);
 
-        todos.splice(taskToDeleteIndex, 1);
+        tasks.splice(taskToDeleteIndex, 1);
 
         saveAndRender();
     }
 });
 
-// EVENT: Update The Todo Being Edited With New Values
-editTodoForm.addEventListener('submit', function (e) {
+// EVENT: Update The Task Being Edited With New Values
+editTaskForm.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    todoToEdit.categoryId = editTodoSelect.value;
-    todoToEdit.todo = editTodoInput.value;
+    taskToEdit.categoryId = editTaskSelect.value;
+    taskToEdit.todo = editTaskInput.value;
 
-    editTodoForm.style.display = 'none';
-    newTodoForm.style.display = 'flex';
+    editTaskForm.style.display = 'none';
+    newTaskForm.style.display = 'flex';
 
-    editTodoSelect.value = '';
-    editTodoInput.value = '';
+    editTaskSelect.value = '';
+    editTaskInput.value = '';
 
     saveAndRender();
 });
@@ -191,23 +191,23 @@ function renderFormOptions() {
     });
 }
 
-function renderTodos() {
+function renderTasks() {
     let taskToRender = task;
 
-    // if their is a Selected Category Id, and selected category id !== 'null then filter the todos
+    // if their is a Selected Category Id, and selected category id !== 'null then filter the tasks
     if (selectedCategoryId && selectedCategoryId !== 'null') {
         taskToRender = task.filter((task) => task.categoryId === selectedCategoryId);
     }
 
-    // Render Todos
-    todosToRender.forEach(({ _id, categoryId, todo }) => {
+    // Render Tasks
+    tasksToRender.forEach(({ _id, categoryId, task }) => {
 
         // Get Complimentary categoryDetails Based On TaskId
         const { color, category } = categories.find(({ _id }) => _id === categoryId);
         const backgroundColor = convertHexToRGBA(color, 20);
         taskContainer.innerHTML += `
-			<div class="todo" style="border-color: ${color}">
-					<div class="todo-tag" style="background-color: ${backgroundColor}; color: ${color};">
+			<div class="task" style="border-color: ${color}">
+					<div class="task-tag" style="background-color: ${backgroundColor}; color: ${color};">
 						${category}
 					</div>
 					<p class="task-description">${task}</p>
