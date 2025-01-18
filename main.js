@@ -9,17 +9,17 @@ const categoriesContainer = document.querySelector('[data-categories]');
 const currentlyViewing = document.querySelector('[data-currently-viewing]');
 
 // Selector for new task form
-const newTodoForm = document.querySelector('[data-new-task-form]');
-const newTodoSelect = document.querySelector('[data-new-task-select]');
-const newTodoInput = document.querySelector('[data-new-task-input]');
+const newTaskForm = document.querySelector('[data-new-task-form]');
+const newTaskSelect = document.querySelector('[data-new-task-select]');
+const newTaskInput = document.querySelector('[data-new-task-input]');
 
 // Selector for edit task form
-const editTodoForm = document.querySelector('[data-edit-task-form]');
-const editTodoSelect = document.querySelector('[data-edit-task-select]');
-const editTodoInput = document.querySelector('[data-edit-task-input]');
+const editTaskForm = document.querySelector('[data-edit-task-form]');
+const editTaskSelect = document.querySelector('[data-edit-task-select]');
+const editTaskInput = document.querySelector('[data-edit-task-input]');
 
 // Selector for task container
-const todosContainer = document.querySelector('[data-cards]');
+const tasksContainer = document.querySelector('[data-cards]');
 
 // Local storage keys
 const LOCAL_STORAGE_CATEGORIES_KEY = 'LOCAL_STORAGE_CATEGORIES_KEY';
@@ -28,7 +28,7 @@ const LOCAL_STORAGE_SELECTED_CATEGORY_ID_KEY = 'LOCAL_STORAGE_SELECTED_CATEGORY_
 
 let selectedCategoryId = localStorage.getItem(LOCAL_STORAGE_SELECTED_CATEGORY_ID_KEY);
 let categories = JSON.parse(localStorage.getItem(LOCAL_STORAGE_CATEGORIES_KEY)) || [];
-let todos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TASK_KEY)) || [];
+let tasks = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TASK_KEY)) || [];
 
 // EVENT: Add Category
 newCategoryForm.addEventListener('submit', (e) => {
@@ -79,7 +79,7 @@ currentlyViewing.addEventListener('click', (e) => {
     if (e.target.tagName.toLowerCase() === 'span') {
         categories = categories.filter((category) => category._id !== selectedCategoryId);
 
-        task = task.filter((todo) => task.categoryId !== selectedCategoryId);
+        task = task.filter((task) => task.categoryId !== selectedCategoryId);
 
         selectedCategoryId = null;
 
@@ -93,7 +93,7 @@ newTaskForm.addEventListener('submit', (e) => {
     task.push({
         _id: Date.now().toString(),
         categoryId: newTaskSelect.value,
-        todo: newTaskInput.value,
+        task: newTaskInput.value,
     });
 
     newTaskSelect.value = '';
@@ -128,7 +128,7 @@ editTaskForm.addEventListener('submit', function (e) {
     e.preventDefault();
 
     taskToEdit.categoryId = editTaskSelect.value;
-    taskToEdit.todo = editTaskInput.value;
+    taskToEdit.task = editTaskInput.value;
 
     editTaskForm.style.display = 'none';
     newTaskForm.style.display = 'flex';
@@ -156,11 +156,11 @@ function render() {
     clearChildElements(categoriesContainer);
     clearChildElements(newTaskSelect);
     clearChildElements(editTaskSelect);
-    clearChildElements(todosContainer);
+    clearChildElements(tasksContainer);
 
     renderCategories();
     renderFormOptions();
-    renderTodos();
+    renderTasks();
 
     // Set the current viewing category
     if (!selectedCategoryId || selectedCategoryId === 'null') {
