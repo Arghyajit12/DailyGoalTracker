@@ -45,13 +45,7 @@ Project Live Server :https://todolist-tasksite.netlify.app/
 12. ```button.btn.btn-primary w/ save```
 13. ```Style main area```
 
-### Cards
-1. ```section.todos-container w/ data-cards```
-2. ```div.todo with inline styles```
-3. ```div.todo-tag w/ inline styles```
-4. ```div.todo-description```
-5. ```div.todo-action with edit and delete icons```
-6. ```Styles cards```
+
 
 
 
