@@ -23,12 +23,12 @@ const todosContainer = document.querySelector('[data-cards]');
 
 // Local storage keys
 const LOCAL_STORAGE_CATEGORIES_KEY = 'LOCAL_STORAGE_CATEGORIES_KEY';
-const LOCAL_STORAGE_TODOS_KEY = 'LOCAL_STORAGE_TODOS_KEY';
+const LOCAL_STORAGE_TASK_KEY = 'LOCAL_STORAGE_TASK_KEY';
 const LOCAL_STORAGE_SELECTED_CATEGORY_ID_KEY = 'LOCAL_STORAGE_SELECTED_CATEGORY_ID_KEY';
 
 let selectedCategoryId = localStorage.getItem(LOCAL_STORAGE_SELECTED_CATEGORY_ID_KEY);
 let categories = JSON.parse(localStorage.getItem(LOCAL_STORAGE_CATEGORIES_KEY)) || [];
-let todos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TODOS_KEY)) || [];
+let todos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TASK_KEY)) || [];
 
 // EVENT: Add Category
 newCategoryForm.addEventListener('submit', (e) => {
@@ -79,7 +79,7 @@ currentlyViewing.addEventListener('click', (e) => {
     if (e.target.tagName.toLowerCase() === 'span') {
         categories = categories.filter((category) => category._id !== selectedCategoryId);
 
-        todos = todos.filter((todo) => todo.categoryId !== selectedCategoryId);
+        task = task.filter((todo) => task.categoryId !== selectedCategoryId);
 
         selectedCategoryId = null;
 
@@ -90,14 +90,14 @@ currentlyViewing.addEventListener('click', (e) => {
 // EVENT: Add Todo
 newTaskForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    todos.push({
+    task.push({
         _id: Date.now().toString(),
-        categoryId: newTodoSelect.value,
-        todo: newTodoInput.value,
+        categoryId: newTaskSelect.value,
+        todo: newTaskInput.value,
     });
 
-    newTodoSelect.value = '';
-    newTodoInput.value = '';
+    newTaskSelect.value = '';
+    newTaskInput.value = '';
 
     saveAndRender();
 });
@@ -106,16 +106,16 @@ newTaskForm.addEventListener('submit', (e) => {
 let todoToEdit = null;
 todosContainer.addEventListener('click', (e) => {
     if (e.target.classList[1] === 'fa-edit') {
-        newTodoForm.style.display = 'none';
-        editTodoForm.style.display = 'flex';
+        newTaskForm.style.display = 'none';
+        editTaskForm.style.display = 'flex';
 
-        todoToEdit = todos.find((todo) => todo._id === e.target.dataset.editTodo);
+        taskToEdit = tasks.find((task) => task._id === e.target.dataset.editTask);
 
         editTaskSelect.value = taskToEdit.categoryId;
-        editTaskInput.value = taskToEdit.todo;
+        editTaskInput.value = taskToEdit.task;
     }
     if (e.target.classList[1] === 'fa-trash-alt') {
-        const taskToDeleteIndex = task.findIndex((todo) => todo._id === e.target.dataset.deleteTask);
+        const taskToDeleteIndex = task.findIndex((task) => task._id === e.target.dataset.deleteTask);
 
         todos.splice(taskToDeleteIndex, 1);
 
@@ -148,14 +148,14 @@ function saveAndRender() {
 
 function save() {
     localStorage.setItem(LOCAL_STORAGE_CATEGORIES_KEY, JSON.stringify(categories));
-    localStorage.setItem(LOCAL_STORAGE_TODOS_KEY, JSON.stringify(todos));
+    localStorage.setItem(LOCAL_STORAGE_TASK_KEY, JSON.stringify(todos));
     localStorage.setItem(LOCAL_STORAGE_SELECTED_CATEGORY_ID_KEY, selectedCategoryId);
 }
 
 function render() {
     clearChildElements(categoriesContainer);
-    clearChildElements(newTodoSelect);
-    clearChildElements(editTodoSelect);
+    clearChildElements(newTaskSelect);
+    clearChildElements(editTaskSelect);
     clearChildElements(todosContainer);
 
     renderCategories();
@@ -182,21 +182,21 @@ function renderCategories() {
 
 function renderFormOptions() {
 
-    newTodoSelect.innerHTML += `<option value="">Select A Category</option>`;
-    editTodoSelect.innerHTML += `<option value="">Select A Category</option>`;
+    newTaskSelect.innerHTML += `<option value="">Select A Category</option>`;
+    editTaskSelect.innerHTML += `<option value="">Select A Category</option>`;
 
     categories.forEach(({ _id, category }) => {
-        newTodoSelect.innerHTML += `<option value=${_id}>${category}</option>`;
-        editTodoSelect.innerHTML += `<option value=${_id}>${category}</option>`;
+        newTaskSelect.innerHTML += `<option value=${_id}>${category}</option>`;
+        editTaskSelect.innerHTML += `<option value=${_id}>${category}</option>`;
     });
 }
 
 function renderTodos() {
-    let todosToRender = todos;
+    let taskToRender = task;
 
     // if their is a Selected Category Id, and selected category id !== 'null then filter the todos
     if (selectedCategoryId && selectedCategoryId !== 'null') {
-        todosToRender = todos.filter((todo) => todo.categoryId === selectedCategoryId);
+        taskToRender = task.filter((task) => task.categoryId === selectedCategoryId);
     }
 
     // Render Todos
@@ -205,15 +205,15 @@ function renderTodos() {
         // Get Complimentary categoryDetails Based On TaskId
         const { color, category } = categories.find(({ _id }) => _id === categoryId);
         const backgroundColor = convertHexToRGBA(color, 20);
-        todosContainer.innerHTML += `
+        taskContainer.innerHTML += `
 			<div class="todo" style="border-color: ${color}">
 					<div class="todo-tag" style="background-color: ${backgroundColor}; color: ${color};">
 						${category}
 					</div>
-					<p class="todo-description">${todo}</p>
-					<div class="todo-actions">
-						<i class="far fa-edit" data-edit-todo=${_id}></i>
-						<i class="far fa-trash-alt" data-delete-todo=${_id}></i>
+					<p class="task-description">${task}</p>
+					<div class="task-actions">
+						<i class="far fa-edit" data-edit-task=${_id}></i>
+						<i class="far fa-trash-alt" data-delete-task=${_id}></i>
 					</div>
 			</div>`;
     });
