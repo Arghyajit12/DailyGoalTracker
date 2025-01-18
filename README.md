@@ -3,7 +3,7 @@
 
 
 
-![Todo List Application](https://i.imgur.com/mtHMvFn.png)
+
 
 ## Steps To Success:
 ### Project setup and css reset
