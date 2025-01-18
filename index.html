@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
         integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
         crossorigin="anonymous" />
-    <title>Todo List Application</title>
+    <title>Daily Goal Tracker Application </title>
 </head>
 
 <body>
@@ -50,44 +50,44 @@
                 </div>
 
                 <!-- Create Todo Form -->
-                <form class="create-todo-form" data-new-todo-form>
+                <form class="create-task-form" data-new-task-form>
                     <div class="form-control">
-                        <select data-new-todo-select required>
+                        <select data-new-task-select required>
                             <option value="">All Categories</option>
                         </select>
                     </div>
                     <div class="form-control">
-                        <input type="text" data-new-todo-input placeholder="Enter Todo" required>
+                        <input type="text" data-new-task-input placeholder="Enter Task" required>
                     </div>
                     <button class="btn btn-primary">
-                        <i class="fa fa-plus" aria-hidden="true"></i> Add Todo
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add Task
                     </button>
                 </form>
 
-                <!-- Update Todo Form -->
-                <form class="edit-todo-form" data-edit-todo-form>
+                <!-- Update Task Form -->
+                <form class="edit-task-form" data-edit-todo-form>
                     <div class="form-control">
                         <select data-edit-todo-select>
                             <option value="">All Categories</option>
                         </select>
                     </div>
                     <div class="form-control">
-                        <input type="text" data-edit-todo-input placeholder="Enter Todo" required>
+                        <input type="text" data-edit-task-input placeholder="Enter Task" required>
                     </div>
                     <button class="btn btn-primary">Save</button>
                 </form>
             </header>
 
             <!-- Cards -->
-            <section class="todos-container" data-cards>
-                <div class="todo" style="border-color: black;">
-                    <div class="todo-tag" style="background-color: rgba(0, 0, 0, 0.5); color: black;">
+            <section class="task-container" data-cards>
+                <div class="task" style="border-color: black;">
+                    <div class="task-tag" style="background-color: rgba(0, 0, 0, 0.5); color: black;">
                         Work
                     </div>
-                    <p class="todo-description">
+                    <p class="task-description">
                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum, doloribus.
                     </p>
-                    <div class="todo-actions">
+                    <div class="task-actions">
                         <i class="far fa-edit"></i>
                         <i class="far fa-trash-alt"></i>
                     </div>
